@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-
 const app = express();
 
 app.use(express.json());
@@ -12,7 +11,11 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use(require('./routes/notes-routes'));
+app.get('/', (req, res, next) => {
+    res.status(200).json(new Date(Date.now()).toISOString())
+});
+
+app.use(require('./routes/notes_routes'));
 
 mongoose.connect(process.env.CONNECTION_STRING)
     .then(() => {
